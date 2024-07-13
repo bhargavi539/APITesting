@@ -1,0 +1,171 @@
+{
+	"info": {
+		"_postman_id": "bb2dc993-4713-4e1d-8cab-5c9fb601f480",
+		"name": "LibraryAPI_Books",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7189560"
+	},
+	"item": [
+		{
+			"name": "AddBooktoLibrary",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Validation of test status code 200\",function(){\r",
+							"\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.expect(jsonData.Msg).is.eqls(\"successfully added\");\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const alphaCode = pm.globals.get(\"companyCode\");\r",
+							"const numCode = pm.variables.replaceIn('{{$randomInt}}');\r",
+							"pm.collectionVariables.set(\"ISBN\",alphaCode + numCode);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n\"name\":\"Appium Automation with Java\",\r\n\"isbn\":\"{{ISBN}}\",\r\n\"aisle\":\"567\",\r\n\"author\":\"John foe\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/Library/Addbook.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Library",
+						"Addbook.php"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchBookbyAuthor",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/Library/GetBook.php?AuthorName=John foe",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Library",
+						"GetBook.php"
+					],
+					"query": [
+						{
+							"key": "AuthorName",
+							"value": "John foe"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchBookbyID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/Library/GetBook.php?ID=aaaxzi222",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Library",
+						"GetBook.php"
+					],
+					"query": [
+						{
+							"key": "ID",
+							"value": "aaaxzi222"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteBookbyID",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n \r\n\"ID\" : \"aaaxzi222\"\r\n \r\n} \r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/Library/DeleteBook.php",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"Library",
+						"DeleteBook.php"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "ISBN",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
