@@ -19,7 +19,14 @@
 							"\r",
 							"    pm.response.to.have.status(200);\r",
 							"    pm.expect(jsonData.Msg).is.eqls(\"successfully added\");\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Headers cookies responsetime validation\",function(){\r",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.eql(\"application/json;charset=UTF-8\");\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(1200);\r",
+							"    const response_text = pm.response.text();\r",
+							"    console.log(response_text);\r",
+							"})"
 						],
 						"type": "text/javascript",
 						"packages": {}
